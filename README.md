@@ -1,6 +1,6 @@
 # SQLite Database Management Command-Line Tool
 
-Effortlessly manage SQLite databases with this versatile command-line tool built in Python. Simplify tasks such as creating databases, managing tables, manipulating data, and encrypting/decrypting sql files, all through a user-friendly interface.
+Effortlessly manage SQLite databases with this versatile command-line tool built in Python. Simplify tasks such as creating databases, managing tables, manipulating data, and encrypting/decrypting sql files, all through a user-friendly command line interface.
 
 ## Features
 
@@ -37,7 +37,7 @@ cd sqlite3dbee-main
 3. Run the tool:
 
 ```batch
-python sqlite3dbee.py [OPTIONS] COMMAND [ARGS]...
+python sqlite3dbee.py [OPTIONS] [COMMAND] <filename> [ARGS]
 ```
 
 ## Usage
@@ -45,24 +45,26 @@ python sqlite3dbee.py [OPTIONS] COMMAND [ARGS]...
 Below are the available commands and their usage examples:
 
 ```bash
-Usage: sqlite3dbee.py [OPTIONS] COMMAND [ARGS]...
+Usage: sqlite3dbee.py [OPTIONS] [COMMAND] <filename> [ARGS]
 
   Command-line interface for managing an SQLite database.
 
 Options:
-  --help  Show this message and exit.
+  --help Show help message and exit.
 
 Commands:
-  add-td     Add a new row of data to the table.
-  insert-th  Create a table with specified headers.
-  lock-db    Lock the SQLite database with encryption.
-  make-db    Create a new SQLite database file.
-  modify-td  Modify rows in the table based on criteria.
-  modify-th  Modify a table header name.
-  remove-td  Remove rows from the table based on criteria.
-  remove-th  Remove a table header and its data.
-  search-td  Search for rows in the table based on criteria.
-  unlock-db  Unlock the SQLite database with decryption.
+  mkdb  Create a new SQLite database file.
+  adth  Create a table with specified headers.
+  adtd  Add a new row of data to the table.
+  mdth  Modify a table header name.
+  mdtd  Modify rows in the table based on criteria.
+  sctr  Search for rows in the table based on criteria.
+  rmtr  Remove rows from the table based on criteria.
+  rmtc  Remove a column from a table in the database.
+  lkdb  Lock the SQLite database with encryption.
+  ukdb  Unlock the SQLite database with decryption.
+  help  Show this message and exit.
+  xmpl  Shows a help message with usage example.
 ```
 
 #### Examples:
@@ -70,62 +72,62 @@ Commands:
 - Create a new SQL database file:
 
 ```bash
-sqlite3dbee.py make-db database.sql
+sqlite3dbee.py mkdb database.sql
 ```
 
 - Insert new table headers:
 
 ```bash
-sqlite3dbee.py insert-th database.sql "No" "Title" "Username" "Password"
+sqlite3dbee.py adth database.sql "Name" "Age" "UserName" "UserID"
 ```
 
 - Add data to the table:
 
 ```bash
-sqlite3dbee.py add-td database.sql "No:1" "Title:GitHub" "Username:John Doe" "Password:StrongDummyPassword"
+sqlite3dbee.py adtd database.sql "Name":"Robby Russel" "Age":"25" "UserName":"robby_fr" "UserID":"1029384756"
 ```
 
 - Search for data in table:
 
 ```bash
-sqlite3dbee.py search-td database.sql
-sqlite3dbee.py search-td database.sql "Username = 'John Doe'"
+sqlite3dbee.py sctr database.sql
+sqlite3dbee.py sctr database.sql "Age = '26'"
 ```
 
-- Remove data from the table:
+- Remove a row of data from the table:
 
 ```bash
-sqlite3dbee.py remove-td database.sql "Username = 'John Doe'"
+sqlite3dbee.py rmtr database.sql "UserName = 'robby_fr'"
 ```
 
 - Modify table data:
 
 ```bash
-sqlite3dbee.py modify-td database.sql "Username = 'John Doe'" "Password='VeryStrongNewPassword'"
+sqlite3dbee.py mdtd database.sql "Age = '25'" "Age = '26'"
 ```
 
-- Remove a table header and its data:
+- Remove a table column and its data:
 
 ```bash
-sqlite3dbee.py remove-th database.sql "Title"
+sqlite3dbee.py rmtc database.sql "UserName"
 ```
 
 - Modify a table header name:
 
 ```bash
-sqlite3dbee.py modify-th database.sql Username new_users
+sqlite3dbee.py mdth database.sql "Name" "RealName"
 ```
 
 - Lock the database file
 
 ```bash
-sqlite3dbee.py lock-db database.sql <password> <conform-password>
+sqlite3dbee.py lkdb database.sql "123456" "123456"
 ```
 
 - Unlock the database file
 
 ```bash
-sqlite3dbee.py unlock-db database.sql <password>
+sqlite3dbee.py ukdb database.sql "123456"
 ```
 
 ## License
